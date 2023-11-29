@@ -30,6 +30,7 @@ def eBordetFull(bord):
     else:
         return True
 
+# Väljer vinnare baserad på deras moves
 def Vinnare(b,l):
     return ((b[1] == l and b[2] == l and b[3] == l) or
     (b[4] == l and b[5] == l and b[6] == l) or
@@ -40,51 +41,59 @@ def Vinnare(b,l):
     (b[1] == l and b[5] == l and b[9] == l) or
     (b[3] == l and b[5] == l and b[7] == l))
 
-def playerMove():
+# Funktionen för spelarens input.
+def Spelare():
     run = True
     while run:
-        move = input("please select a position to enter the X between 1 to 9\n")
+        flytta = input("Välj en position att skriva X i mellan ruta 1 till 9\n")
         try:
-            move = int(move)
-            if move > 0 and move < 10:
-                if ledigplats(move):
+            # Om man anger en siffra mindre än 0 eller större än 10 så kommer det inte att fungera
+            flytta = int(flytta)
+            if flytta > 0 and flytta < 10:
+                if ledigplats(flytta):
                     run = False
-                    skrivbokstaven('X' , move)
+                    skrivbokstaven('X' , flytta)
+                
+                # Meddelandet för om man väljer en ruta som är tagen.
                 else:
-                    print('Sorry, this space is occupied')
+                    print('Rutan är inte tomt')
             else:
-                print('please type a number between 1 and 9')
-
+                print('Ange en siffra 1 till 9')
+        # Jag antar att dett aär ett undantag
         except:
-            print('Please type a number')
+            print('Ange en siffra')
 
-def computerMove():
-    possibleMoves = [x for x , bokstav in enumerate(bord) if bokstav == ' ' and x != 0  ]
+# Funktionen för datorns input
+def datorn():
+    # Detta är möjliga moves för datorn.
+    mojligamoves = [x for x , bokstav in enumerate(bord) if bokstav == ' ' and x != 0  ]
     move = 0
 
+    # Det är en for loop, men jag är inte säker på vad det det gör. 
     for let in ['O' , 'X']:
-        for i in possibleMoves:
-            boardcopy = bord[:]
-            boardcopy[i] = let
-            if Vinnare(boardcopy, let):
+        for i in mojligamoves:
+            kopierabordet = bord[:]
+            kopierabordet[i] = let
+            if Vinnare(kopierabordet, let):
                 move = i
                 return move
 
-    cornersOpen = []
-    for i in possibleMoves:
+    # Det är en lista med möjöiga rutor man kan välja tror jag.
+    kanter = []
+    for i in mojligamoves:
         if i in [1 , 3 , 7 , 9]:
-            cornersOpen.append(i)
+            kanter.append(i)
 
-    if len(cornersOpen) > 0:
-        move = selectRandom(cornersOpen)
+    if len(kanter) > 0:
+        move = selectRandom(kanter)
         return move
 
-    if 5 in possibleMoves:
+    if 5 in mojligamoves:
         move = 5
         return move
 
     edgesOpen = []
-    for i in possibleMoves:
+    for i in mojligamoves:
         if i in [2,4,6,8]:
             edgesOpen.append(i)
 
@@ -104,14 +113,14 @@ def main():
 
     while not(eBordetFull(bord)):
         if not(Vinnare(bord , 'O')):
-            playerMove()
+            Spelare()
             printBord(bord)
         else:
             print("sorry you loose!")
             break
 
         if not(Vinnare(bord , 'X')):
-            move = computerMove()
+            move = datorn()
             if move == 0:
                 print(" ")
             else:
