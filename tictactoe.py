@@ -84,39 +84,43 @@ def datorn():
         if i in [1 , 3 , 7 , 9]:
             kanter.append(i)
 
+    # en If sats för om det finna rutorkvar.
     if len(kanter) > 0:
-        move = selectRandom(kanter)
+        move = väljRandom(kanter)
         return move
 
     if 5 in mojligamoves:
         move = 5
         return move
-
-    edgesOpen = []
+    # En annan lista
+    ledigarutor = []
     for i in mojligamoves:
         if i in [2,4,6,8]:
-            edgesOpen.append(i)
+            ledigarutor.append(i)
 
-    if len(edgesOpen) > 0:
-        move = selectRandom(edgesOpen)
+    if len(ledigarutor) > 0:
+        move = väljRandom(ledigarutor)
         return move
 
-def selectRandom(li):
+# En funktion till en random sak jag vet inte vad det är.
+def väljRandom(li):
     import random
     ln = len(li)
     r = random.randrange(0,ln)
     return li[r]
 
-def main():
-    print("Welcome to the game!")
+# Printar ett meddelande
+def rebaz():
+    print("Välkommen till spelet!")
     printBord(bord)
 
+    # EN while loop
     while not(eBordetFull(bord)):
         if not(Vinnare(bord , 'O')):
             Spelare()
             printBord(bord)
         else:
-            print("sorry you loose!")
+            print("Du torska!")
             break
 
         if not(Vinnare(bord , 'X')):
@@ -125,7 +129,7 @@ def main():
                 print(" ")
             else:
                 skrivbokstaven('O' , move)
-                print('computer placed an o on position' , move , ':')
+                print('Dator placerade o i platsen' , move , ':')
                 printBord(bord)
         else:
             print("you win!")
@@ -135,13 +139,14 @@ def main():
 
 
     if eBordetFull(bord):
-        print("Tie game")
+        print("Oavgjort")
 
+# En while loop som frågar användaren
 while True:
-    x = input("Do you want to play? Press y for yes or n for no (y/n)\n")
-    if x.lower() == 'y':
+    x = input("Vill du spela? Skriv ja eller nej:\n")
+    if x.lower() == 'ja':
         bord = [' ' for x in range(10)]
         print('--------------------')
-        main()
+        rebaz()
     else:
         break
