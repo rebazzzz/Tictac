@@ -1,15 +1,15 @@
-# Printar 9 rutor
+# Printar 9 rutor.
 bord = [' ' for x in range(10)]
 
-# Det är funktionen för X och O bokstäverna
+# Det är funktionen för X och O bokstäverna.
 def skrivbokstaven(bokstav,pos):
     bord[pos] = bokstav
 
-# Är de tomma rutorna på bordet som man kan skriva en bokstav i
+# Är de tomma rutorna på bordet som man kan skriva en bokstav i.
 def ledigplats(pos):
     return bord[pos] == ' '
 
-# Det printar själva bordet som man spelar på
+# Det printar själva bordet som man spelar på.
 def printBord(bord):
     print('   |   |   ')
     print(' ' + bord[1] + ' | ' + bord[2] + ' | ' + bord[3])
@@ -30,7 +30,7 @@ def eBordetFull(bord):
     else:
         return True
 
-# Väljer vinnare baserad på deras moves
+# Väljer vinnare baserad på deras moves.
 def Vinnare(b,l):
     return ((b[1] == l and b[2] == l and b[3] == l) or
     (b[4] == l and b[5] == l and b[6] == l) or
@@ -47,7 +47,7 @@ def Spelare():
     while run:
         flytta = input("Välj en position att skriva X i mellan ruta 1 till 9\n")
         try:
-            # Om man anger en siffra mindre än 0 eller större än 10 så kommer det inte att fungera
+            # Om man anger en siffra mindre än 0 eller större än 10 så kommer det inte att fungera.
             flytta = int(flytta)
             if flytta > 0 and flytta < 10:
                 if ledigplats(flytta):
@@ -151,4 +151,3 @@ while True:
     else:
         break
 
-    
