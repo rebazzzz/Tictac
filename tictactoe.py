@@ -132,7 +132,7 @@ def rebaz():
                 print('Dator placerade o i platsen' , move , ':')
                 printBord(bord)
         else:
-            print("you win!")
+            print("Du vann!")
             break
 
 
@@ -150,3 +150,5 @@ while True:
         rebaz()
     else:
         break
+
+    
